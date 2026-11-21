@@ -29,6 +29,12 @@ npm run build    # 生成 build/windows-amd64/PassGuard.exe 与安装包
 - `build/windows-amd64/PassGuard.exe`
 - `build/windows-amd64/passguard-setup-2.4.2-amd64.exe`
 
+## 发布新版本
+
+1. 同步修改 `version.go` 的 `appVersion` 和 `mygo.config.ts` 的 `version`
+2. 执行 `npm run build`
+3. 创建 GitHub Release，上传安装包、便携版，并附带 `SHA256SUMS.txt`；应用内更新会下载并校验这个文件
+
 ## 数据位置
 
 - 保险库：`%APPDATA%\PassGuard\PasswordVault\vault.bin`
