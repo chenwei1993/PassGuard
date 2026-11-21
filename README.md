@@ -43,3 +43,11 @@ npm run build    # 生成 build/windows-amd64/PassGuard.exe 与安装包
 ```sh
 $env:PASSGUARD_DATA='C:\temp\passguard-test'; npm run dev
 ```
+
+## 支持的系统
+
+Windows 10（1809 及以上）/ Windows 11，64 位。不支持 Windows 7。
+
+## 许可证
+
+MIT，详见 [LICENSE](LICENSE)。
