@@ -28,6 +28,7 @@
         <a href="#features">功能</a>
         <a href="#screens">界面</a>
         <a href="#security">安全</a>
+        <a href="#updates">更新</a>
         <a href="#download">下载</a>
         <a href="#faq">常见问题</a>
         <a class="nav-github" href="https://github.com/chenwei1993/PassGuard" target="_blank" rel="noopener">GitHub</a>
@@ -194,6 +195,43 @@
 }</code></pre>
           <p class="code-foot">真实密码只存在于 <code>vault</code> 的密文里。</p>
         </div>
+      </div>
+    </section>
+
+    <section class="section update" id="updates">
+      <div class="container update-grid">
+        <div class="update-copy reveal">
+          <p class="kicker">更新</p>
+          <h2>新版本，<br>自己找上门。</h2>
+          <p>启动时检查 GitHub Releases；有新版本时，顶部栏会出现更新入口，不用再手动找安装包。</p>
+          <ol class="steps">
+            <li>
+              <span>01</span>
+              <div>
+                <strong>启动时检查</strong>
+                <p>只读取版本号和发布信息，不发送密码、保险库或任何个人数据。</p>
+              </div>
+            </li>
+            <li>
+              <span>02</span>
+              <div>
+                <strong>下载并校验</strong>
+                <p>安装包先对照发布页的 <code>SHA256SUMS.txt</code> 校验，校验失败就不会运行。</p>
+              </div>
+            </li>
+            <li>
+              <span>03</span>
+              <div>
+                <strong>安装并重启</strong>
+                <p>安装程序更新当前版本，完成后重新打开应用即可。</p>
+              </div>
+            </li>
+          </ol>
+          <p class="update-note">自动检查可以在 设置 → 关于 中随时关闭。</p>
+        </div>
+        <figure class="shot-frame update-shot reveal">
+          <img src="assets/update-card.png" alt="守密 PassGuard 的软件更新界面，显示更新已下载和 SHA-256 校验通过" width="890" height="355">
+        </figure>
       </div>
     </section>
 
