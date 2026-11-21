@@ -1,0 +1,11 @@
+{
+  "name": "local-pwd",
+  "private": true,
+  "scripts": {
+    "dev": "mygo dev",
+    "build": "mygo build"
+  },
+  "devDependencies": {
+    "mygo-cli": "^0.10.0"
+  }
+}

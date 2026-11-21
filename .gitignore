@@ -1,0 +1,6 @@
+node_modules/
+/dist/
+/build/
+/.mygo/
+local-pwd.exe
+mygo_windows_*.syso
