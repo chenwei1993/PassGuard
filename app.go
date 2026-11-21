@@ -163,6 +163,9 @@ type App struct {
 	lastActivity time.Time
 	idleTimer    *time.Timer
 	copySeq      atomic.Int64
+
+	// GitHub Releases updates
+	upd updateState
 }
 
 func NewApp() *App {

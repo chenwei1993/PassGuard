@@ -421,6 +421,7 @@ func (a *App) topbar(c *ui.Context) {
 		})
 		ui.Spacer(c)
 		ui.Row(c).Gap(12).AlignItems(ui.Center).Children(func() {
+			a.updateButton(c)
 			switch a.page {
 			case "vault":
 				a.searchField(c)
@@ -516,6 +517,27 @@ func (a *App) viewToggle(c *ui.Context) {
 				ui.Icon(c, icon(item.icon)).FontSize(16).TextColor(col)
 			})
 		}
+	})
+}
+
+func (a *App) updateButton(c *ui.Context) {
+	if a.upd.info == nil {
+		return
+	}
+	t := c.Theme()
+	label := a.tf("settings.update.available", map[string]any{"version": a.upd.info.Version})
+	b := ui.Box(c).Size(32, 32).Radius(10).Center().Cursor(ui.CursorPointer)
+	b.Label(label)
+	b.Tooltip(label)
+	if b.Hovered() {
+		b.Background(a.surface3())
+	}
+	b.OnClick(func() {
+		a.page = "settings"
+		a.settingsTab = 3
+	})
+	b.Children(func() {
+		ui.Icon(c, icon("download")).FontSize(17).TextColor(t.Accent)
 	})
 }
 

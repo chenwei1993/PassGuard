@@ -237,7 +237,7 @@ func (a *App) createWindow() {
 
 func main() {
 	mygo.App.SetName("PassGuard")
-	mygo.App.SetVersion("2.4.1")
+	mygo.App.SetVersion(appVersion)
 	mygo.App.SetLanguages("en", "zh-Hans")
 
 	// A data directory of its own, for trying the app or keeping its data
@@ -281,6 +281,9 @@ func main() {
 		a.createWindow()
 		createTray(a)
 		go a.boot()
+		if a.settings.AutoCheckUpdates {
+			a.checkForUpdates(false)
+		}
 	})
 
 	if err := mygo.App.Run(); err != nil {

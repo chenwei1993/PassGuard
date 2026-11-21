@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>守密 PassGuard — 只属于你的本地密码保险箱</title>
-  <meta name="description" content="守密 PassGuard 是一款完全离线的 Windows 密码管理器：原生界面、scrypt + AES-256-GCM 加密、没有云端账户。数据只保存在你自己的电脑里。">
+  <meta name="description" content="守密 PassGuard 是一款本地优先的 Windows 密码管理器：原生界面、scrypt + AES-256-GCM 加密、没有云端账户。密码只保存在你自己的电脑里。">
   <meta name="theme-color" content="#08080f">
   <meta property="og:type" content="website">
   <meta property="og:title" content="守密 PassGuard — 只属于你的本地密码保险箱">
-  <meta property="og:description" content="完全离线的 Windows 密码管理器。原生界面，AES-256-GCM 加密，没有账号、没有云同步。">
+  <meta property="og:description" content="本地优先的 Windows 密码管理器。原生界面，AES-256-GCM 加密，没有账号、没有云同步。">
   <meta property="og:image" content="https://chenwei1993.github.io/PassGuard/assets/social-preview.png">
   <meta name="twitter:image" content="https://chenwei1993.github.io/PassGuard/assets/social-preview.png">
   <meta property="og:url" content="https://chenwei1993.github.io/PassGuard/">
@@ -45,9 +45,9 @@
     <section class="hero">
       <div class="hero-grid container">
         <div class="hero-copy">
-          <p class="eyebrow"><span class="dot"></span>Windows 10 / 11 · 原生界面 · 完全离线</p>
+          <p class="eyebrow"><span class="dot"></span>Windows 10 / 11 · 原生界面 · 本地存储</p>
           <h1>你的密码，<br><span class="grad">只留在你的电脑里</span></h1>
-          <p class="lede">守密 PassGuard 是一款完全离线的 Windows 密码管理器。原生界面、现代加密、没有云端账户——主密码只在你自己的设备上验证。</p>
+          <p class="lede">守密 PassGuard 是一款本地优先的 Windows 密码管理器。原生界面、现代加密、没有云端账户——主密码只在你自己的设备上验证。</p>
           <div class="hero-actions">
             <a class="btn btn-primary btn-lg" href="#download">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
@@ -98,8 +98,8 @@
           </article>
           <article class="feature-card reveal">
             <div class="f-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 8.8A16 16 0 0 1 22 8.8"/><path d="M5 12.5a11 11 0 0 1 14 0"/><path d="M8.5 16a6 6 0 0 1 7 0"/><circle cx="12" cy="19" r="1"/><path d="m3 3 18 18"/></svg></div>
-            <h3>完全离线</h3>
-            <p>没有账号、没有云同步、没有遥测。密码只写入本机的 <code>vault.bin</code>，不向任何服务器发送。</p>
+            <h3>不依赖云端</h3>
+            <p>没有账号、没有云同步、没有遥测。仅启动时检查更新（可关闭）会访问 GitHub Releases，密码与保险库绝不离开本机。</p>
           </article>
           <article class="feature-card reveal">
             <div class="f-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9z"/><path d="M15 2v2M9 2v2M15 20v2M9 20v2M2 15h2M2 9h2M20 15h2M20 9h2"/></svg></div>
@@ -205,7 +205,7 @@
             <div>
               <p class="kicker">下载</p>
               <h2>把密码，<br>收回自己手里。</h2>
-              <p class="download-meta">守密 PassGuard <strong>2.4.1</strong> · Windows 10 / 11 · 64 位 · 约 12 MB</p>
+              <p class="download-meta">守密 PassGuard <strong>2.4.2</strong> · Windows 10 / 11 · 64 位 · 约 12 MB</p>
             </div>
             <div class="download-actions">
               <a class="btn btn-primary btn-lg" href="https://github.com/chenwei1993/PassGuard/releases/latest">
@@ -214,11 +214,11 @@
               </a>
               <a class="btn btn-ghost btn-lg" href="https://github.com/chenwei1993/PassGuard/releases">所有版本</a>
             </div>
-            <p class="download-note">开源免费。安装包与便携版发布在 GitHub Releases；也可以克隆仓库自行构建。</p>
+            <p class="download-note">开源免费。安装包与便携版发布在 GitHub Releases；也可以克隆仓库自行构建。应用启动时会检查新版本，可在设置中关闭。</p>
           </div>
           <div class="download-side">
             <div><span>加密</span><strong>AES-256-GCM</strong></div>
-            <div><span>网络</span><strong>完全离线</strong></div>
+            <div><span>网络</span><strong>仅检查更新</strong></div>
             <div><span>账户</span><strong>不需要</strong></div>
             <div><span>代码</span><strong>公开可审计</strong></div>
           </div>
@@ -244,7 +244,7 @@
           </details>
           <details>
             <summary>应用会联网吗？</summary>
-            <p>没有账号、云同步和遥测。密码、用户名和保险库内容不会离开本机，也不会发送到任何服务器。</p>
+            <p>平时完全离线。只有启动时（可在“设置 → 关于 → 自动检查更新”中关闭）会访问 GitHub Releases 检查新版本，请求不包含密码、用户名或保险库内容。</p>
           </details>
           <details>
             <summary>和之前的 Electron 版兼容吗？</summary>

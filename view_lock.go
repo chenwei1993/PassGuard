@@ -99,7 +99,7 @@ func (a *App) viewLock(c *ui.Context) {
 						ui.Text(c, a.t("lock.aesEncrypted")).FontSize(t.FontSize * 0.8214).TextColor(t.TextMuted)
 					})
 					ui.Spacer(c)
-					ui.Text(c, "v2.4.1").FontSize(t.FontSize * 0.8214).TextColor(t.TextMuted)
+					ui.Text(c, "v"+appVersion).FontSize(t.FontSize * 0.8214).TextColor(t.TextMuted)
 				})
 			})
 		})

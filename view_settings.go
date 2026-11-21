@@ -419,7 +419,7 @@ func (a *App) settingsAbout(c *ui.Context) {
 			box.Children(func() { ui.Icon(c, icon("lock-keyhole")).FontSize(26).TextColor(ui.Hex("#ffffff")) })
 			ui.Column(c).Gap(2).Children(func() {
 				ui.Text(c, a.t("app.name")).FontSize(t.FontSize * 1.2).Bold()
-				ui.Text(c, "v2.4.1").FontSize(t.FontSize * 0.86).TextColor(t.TextMuted)
+				ui.Text(c, "v"+appVersion).FontSize(t.FontSize * 0.86).TextColor(t.TextMuted)
 				ui.Text(c, "AES-256-GCM · scrypt · "+a.t("vault.localStorage")).FontSize(t.FontSize * 0.82).TextColor(t.TextMuted)
 			})
 		})
@@ -437,4 +437,107 @@ func (a *App) settingsAbout(c *ui.Context) {
 			}
 		})
 	})
+
+	// GitHub Releases updates
+	a.settingsGroup(c, "refresh-cw", a.t("settings.update.title")).Children(func() {
+		ui.Text(c, a.t("settings.update.desc")).FontSize(t.FontSize * 0.86).TextColor(t.TextMuted)
+		ui.Row(c).Gap(12).AlignItems(ui.Center).Children(func() {
+			ui.Column(c).Grow(1).Gap(2).Children(func() {
+				ui.Text(c, a.t("settings.update.current")).FontSize(t.FontSize * 0.84).TextColor(t.TextMuted)
+				ui.Text(c, "v"+appVersion).FontSize(t.FontSize * 1.05).Bold()
+			})
+			label := a.t("settings.update.check")
+			if a.upd.checking {
+				label = a.t("settings.update.checking")
+			}
+			if a.iconTextButton(c, "refresh-cw", label, false).Disabled(a.upd.checking || a.upd.downloading).Clicked() {
+				a.checkForUpdates(true)
+			}
+		})
+		a.settingsRow(c, a.t("settings.update.auto"), a.t("settings.update.autoDesc"), func() {
+			sw := ui.Switch(c, &a.settings.AutoCheckUpdates)
+			if sw.Changed() {
+				a.saveSettings()
+				if a.settings.AutoCheckUpdates && !a.upd.checked && !a.upd.checking {
+					a.checkForUpdates(true)
+				}
+			}
+		})
+		a.updateStatus(c)
+	})
+}
+
+// updateStatus is the state line of the update card: a download in
+// progress, the installer ready to run, a release that is newer, an error
+// or an up-to-date answer.
+func (a *App) updateStatus(c *ui.Context) {
+	t := c.Theme()
+	if a.upd.downloading {
+		percent := 0
+		if a.upd.total > 0 {
+			percent = int(a.upd.progress * 100 / a.upd.total)
+		}
+		if percent > 100 {
+			percent = 100
+		}
+		ui.Text(c, a.tf("settings.update.downloading", map[string]any{"percent": percent})).FontSize(t.FontSize * 0.88).TextColor(t.TextMuted)
+		ui.Progress(c, float64(percent)/100).Height(6).FillWidth()
+		return
+	}
+	if a.upd.readyPath != "" {
+		ui.Row(c).Gap(10).AlignItems(ui.Center).Children(func() {
+			ui.Icon(c, icon("download")).FontSize(17).TextColor(t.Success)
+			ui.Text(c, a.t("settings.update.ready")).FontSize(t.FontSize * 0.9).Grow(1)
+			if a.iconTextButton(c, "refresh-cw", a.t("settings.update.install"), true).Clicked() {
+				a.installUpdate()
+			}
+		})
+		note := ""
+		switch {
+		case a.upd.verified:
+			note = a.t("settings.update.checksum")
+		case len(a.upd.readyHash) >= 16:
+			note = a.tf("settings.update.hash", map[string]any{"hash": a.upd.readyHash[:16] + "…"})
+		}
+		if note != "" {
+			ui.Text(c, note).FontSize(t.FontSize * 0.78).TextColor(t.TextMuted)
+		}
+		ui.Text(c, a.t("settings.update.installNote")).FontSize(t.FontSize * 0.78).TextColor(t.TextMuted)
+		if a.upd.installErr != "" {
+			ui.Text(c, a.tf("settings.update.downloadFailed", map[string]any{"error": a.upd.installErr})).FontSize(t.FontSize * 0.82).TextColor(t.Danger)
+		}
+		return
+	}
+	if info := a.upd.info; info != nil {
+		ui.Row(c).Gap(12).AlignItems(ui.Center).Children(func() {
+			ui.Icon(c, icon("download")).FontSize(18).TextColor(t.Accent)
+			ui.Column(c).Grow(1).Gap(2).Children(func() {
+				ui.Text(c, a.tf("settings.update.available", map[string]any{"version": info.Version})).FontSize(t.FontSize * 0.95).Bold()
+				if info.AssetURL != "" {
+					ui.Text(c, a.fmtSize(info.AssetSize)).FontSize(t.FontSize * 0.82).TextColor(t.TextMuted)
+				} else {
+					ui.Text(c, a.t("settings.update.noInstaller")).FontSize(t.FontSize * 0.82).TextColor(t.Warning)
+				}
+			})
+			if info.AssetURL != "" {
+				if a.iconTextButton(c, "download", a.t("settings.update.download"), true).Clicked() {
+					a.downloadUpdate()
+				}
+			}
+			if a.iconTextButton(c, "external-link", a.t("settings.update.release"), false).Clicked() {
+				a.openReleasePage()
+			}
+		})
+		return
+	}
+	if a.upd.err != "" {
+		ui.Text(c, a.tf("settings.update.failed", map[string]any{"error": a.upd.err})).FontSize(t.FontSize * 0.86).TextColor(t.Danger)
+		return
+	}
+	if a.upd.checked {
+		ui.Row(c).Gap(8).AlignItems(ui.Center).Children(func() {
+			ui.Icon(c, icon("check-circle")).FontSize(15).TextColor(t.Success)
+			ui.Text(c, a.t("settings.update.upToDate")).FontSize(t.FontSize * 0.9).TextColor(t.TextMuted)
+		})
+	}
 }

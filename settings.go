@@ -23,6 +23,9 @@ type AppSettings struct {
 	NotifyExpiry     bool   `json:"notifyExpiry"`
 	NotifyBackup     bool   `json:"notifyBackup"`
 	SidebarCollapsed bool   `json:"sidebarCollapsed"`
+	// AutoCheckUpdates makes the app ask GitHub Releases for a new version
+	// once at startup. The check sends no vault data and can be turned off.
+	AutoCheckUpdates bool `json:"autoCheckUpdates"`
 	// ShellIconsVersion is the version of the app's icon that Explorer was
 	// last told about, so that an update refreshes the shortcuts' icons
 	// once, not on every launch.
@@ -33,18 +36,19 @@ const settingsVersion = 1
 
 func defaultSettings() AppSettings {
 	return AppSettings{
-		Version:         settingsVersion,
-		AutoLockMinutes: 5,
-		LockOnStartup:   true,
-		LockOnMinimize:  false,
-		ClipClear:       false,
-		ClipClearSecs:   0,
-		ThemeMode:       "light",
-		FontSize:        "normal",
-		NotifyWeak:      true,
-		NotifyBreach:    true,
-		NotifyExpiry:    true,
-		NotifyBackup:    false,
+		Version:          settingsVersion,
+		AutoLockMinutes:  5,
+		LockOnStartup:    true,
+		LockOnMinimize:   false,
+		ClipClear:        false,
+		ClipClearSecs:    0,
+		ThemeMode:        "light",
+		FontSize:         "normal",
+		NotifyWeak:       true,
+		NotifyBreach:     true,
+		NotifyExpiry:     true,
+		NotifyBackup:     false,
+		AutoCheckUpdates: true,
 	}
 }
 
@@ -61,6 +65,14 @@ func (a *App) loadSettings() {
 	var s AppSettings
 	if json.Unmarshal(raw, &s) != nil {
 		return
+	}
+	// A file written before the setting existed keeps the default, which is
+	// on: only an explicit false turns update checks off.
+	var keys map[string]json.RawMessage
+	if json.Unmarshal(raw, &keys) == nil {
+		if _, ok := keys["autoCheckUpdates"]; !ok {
+			s.AutoCheckUpdates = true
+		}
 	}
 	if s.Version != settingsVersion {
 		// A file from before the format was versioned, or a partial one.

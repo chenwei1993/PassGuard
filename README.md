@@ -14,6 +14,7 @@
 - 本地备份：立即备份、自动备份间隔与保留数量、历史恢复
 - 设置：主题（浅色/深色/跟随系统）、字体大小、语言（简体中文/English）、自动锁定、剪贴板清理、通知、快捷键、修改主密码、数据修复与删除
 - 系统集成：托盘菜单（显示/锁定/退出）、关闭到托盘、单实例、最小化锁定、系统通知、系统凭据存储记住密钥
+- 自动更新：启动时检查 GitHub Releases，发现新版本可下载并安装；只访问 GitHub，不发送密码或保险库数据，可在“设置 → 关于”中关闭
 
 ## 开发与构建
 
@@ -26,7 +27,7 @@ npm run build    # 生成 build/windows-amd64/PassGuard.exe 与安装包
 构建产物：
 
 - `build/windows-amd64/PassGuard.exe`
-- `build/windows-amd64/passguard-setup-2.4.1-amd64.exe`
+- `build/windows-amd64/passguard-setup-2.4.2-amd64.exe`
 
 ## 数据位置
 

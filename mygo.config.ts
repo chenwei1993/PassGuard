@@ -3,7 +3,7 @@ import { defineConfig } from "mygo-cli";
 export default defineConfig({
   name: "PassGuard",
   identifier: "com.passguard.app",
-  version: "2.4.1",
+  version: "2.4.2",
   copyright: "© 2026 PassGuard",
   // The window shows the native interface Go draws, not a web page, so
   // there is no frontend to develop or build.
