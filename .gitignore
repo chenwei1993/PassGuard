@@ -2,5 +2,6 @@ node_modules/
 /dist/
 /build/
 /.mygo/
+/testdata/
 local-pwd.exe
 mygo_windows_*.syso
