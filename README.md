@@ -2,6 +2,8 @@
 
 本地密码管理器。界面由 Go 的 `github.com/egoist/mygo/ui` 直接绘制，不使用 WebView，也没有前端构建。
 
+> 官网 / 宣传页：https://chenwei1993.github.io/PassGuard/
+
 ## 功能
 
 - 加密保险库：scrypt 派生密钥 + AES-256-GCM，与 Electron 版使用同一文件格式
